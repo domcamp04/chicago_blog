@@ -1,0 +1,59 @@
+.login{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: url('https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/2-chicago-flag-skyline-apparel-michael-s.jpg');
+    background-size: auto;
+}
+
+.loginTitle{
+    font-size: 50px;
+    color: whitesmoke;
+    font-family: 'Yuji Syuku', serif;
+}
+
+.loginForm{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.loginInput{
+    background-color: whitesmoke;
+    border: none;
+}
+
+.loginButton{
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: rgb(112, 204, 112);
+    color: whitesmoke;
+    border: none;
+    border-radius: 10px;
+    font-size: 25px;
+    font-family: 'Montserrat', sans-serif;
+}
+.loginRegisterButton{
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: rgb(112, 204, 112);
+    color: whitesmoke;
+    border: none;
+    border-radius: 10px;
+    font-size: 25px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.inputLabel{
+    color: white;
+    font-family: 'Yuji Syuku', serif;
+    font-size: 25px;
+
+}
+
+.loginRegisterButton{
+    text-decoration: none;
+    color: whitesmoke;
+}

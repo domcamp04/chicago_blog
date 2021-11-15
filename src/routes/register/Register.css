@@ -1,0 +1,67 @@
+.register{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: url('https://assets3.thrillist.com/v1/image/3008962/1200x600/scale;');
+    background-size: cover;
+}
+
+.registerTitle{
+    font-size: 50px;
+    color: rgb(0, 0, 0);
+    font-family: 'Yuji Syuku', serif;
+    border-bottom: 2px solid black;
+}
+
+.registerForm{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.registerInput{
+    background-color: whitesmoke;
+    border: none;
+}
+
+.registerButton{
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: rgb(209, 170, 41);
+    color: whitesmoke;
+    border: none;
+    border-radius: 10px;
+    font-size: 25px;
+    font-family: 'Montserrat', sans-serif;
+}
+.registerLoginButton{
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: rgb(113, 194, 102);
+    color: whitesmoke;
+    border: none;
+    border-radius: 10px;
+    font-size: 25px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.inputLabel{
+    color: rgb(0, 0, 0);
+    font-family: 'Yuji Syuku', serif;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.registerInput{
+    border: none;
+    color: rgb(48, 48, 48);
+    border-radius: 10px;
+    height: 30px;
+}
+
+.registerLoginButton{
+    text-decoration: none;
+    color: whitesmoke;
+}
