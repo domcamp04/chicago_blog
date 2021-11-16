@@ -1,7 +1,9 @@
 import './Navbar.css' 
 import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
 
-export default function Navbar() {
+export default class Navbar extends Component {
+    render(){
     return (
         <div className='nav'>
             <div className="navL">
@@ -23,14 +25,15 @@ export default function Navbar() {
                     <li className='navListItem'>
                         <Link className='navLink' to='/login'>Login</Link>
                     </li>
-                    <li className='navListItem'>
-                        <Link className='navLink' to='/logout'>Logout</Link>
-                    </li>
                 </ul>
             </div>
             <div className="navR">
-                <img className='navImage' src="https://via.placeholder.com/350" alt="placeholder" />
+                {  this.props.user ? <h2 className='text-center'>{this.props.user.email}</h2>: null}
+                    <li className='navListItem'>
+                        { this.props.user ? <Link className='navLink' to='/logout' onClick={this.props.logout}>Logout</Link>: null}
+                    </li>
             </div>
         </div>
     )
+}
 }

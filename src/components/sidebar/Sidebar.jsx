@@ -1,6 +1,9 @@
 import "./sidebar.css";
+import React, { Component } from 'react'
 
-export default function Sidebar() {
+
+export default class Sidebar extends Component {
+  render(){
   return (
     <div className="sidebar">
       <div className="sidebarItem">
@@ -35,4 +38,5 @@ export default function Sidebar() {
       </div>
     </div>
   );
+}
 }

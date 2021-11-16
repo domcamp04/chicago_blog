@@ -4,7 +4,7 @@ export default function Header() {
     return (
         <div className='header'>
             <div className="headerTitles">
-                <span className='headerTitleLg'>What To Do Chiago?</span>
+                <span className='headerTitleLg'>What To Do Chicago?</span>
             </div>
             <img className='headerImg' src="https://media.timeout.com/images/105685502/image.jpg" alt="" />
         </div>

@@ -1,79 +1,184 @@
+import React, { Component } from 'react'
 import Navbar from "./components/navbar/Navbar";
-import Login from "./routes/login/Login";
-import Register from "./routes/register/Register";
-import Home from './routes/home/HomePage';
-import Single from "./routes/single/Single";
-import Write from "./routes/write/Write";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Routes  } from 'react-router-dom';
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, get } from "firebase/database";
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import Login from "./views/login/Login";
+import Register from "./views/register/Register";
+import Home from './views/home/HomePage';
+import Single from "./views/single/Single";
+import Write from "./views/write/Write";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import app from './config/Fire'
+// import { getDatabase, ref, get } from "firebase/database";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from 'firebase/auth';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDoGKHYtgHDh405gIpcmWuu4Wu9O_y-Zs4",
-  authDomain: "chicago-blog.firebaseapp.com",
-  projectId: "chicago-blog",
-  storageBucket: "chicago-blog.appspot.com",
-  messagingSenderId: "809105754810",
-  appId: "1:809105754810:web:fdb8af0119037eb1edd083",
-  databaseURL: 'https://chicago-blog-default-rtdb.firebaseio.com/',
-};
+  // const database = getDatabase(app);
+  // console.log(database);
 
-const app = initializeApp(firebaseConfig);
-console.log(app);
-console.log('dominick');
+  // const dbRef = ref(getDatabase());
+  // get(dbRef).then((snapshot) => {
+  //   if (snapshot.exists()) {
+  //     let rawData = snapshot
+  //     console.log(snapshot.val(rawData))
+  //   } else {
+  //     console.log("No data available");
+  //   }
+  // }).catch((error) => {
+  //   console.error(error);
+  // });
 
-const database = getDatabase(app);
-console.log(database);
+  // const auth = getAuth();
+  // createUserWithEmailAndPassword(auth)
+  //   .then((userCredential) => {
+  //     // Signed in 
+  //     const user = userCredential.user;
+  //     // ...
+  //   })
+  //   .catch((error) => {
+  //     const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     // ..
+  //   });
 
-const dbRef = ref(getDatabase());
-get(dbRef).then((snapshot) => {
-  if (snapshot.exists()) {
-    let rawData = snapshot
-    console.log(snapshot.val(rawData))
+  // onAuthStateChanged(auth, user => {
+  //   if(user != null){
+  //     console.log('logged in!');
+  //   } else {
+  //     console.log('no user')
+  //   }
+  // })
 
-    let kekambasList = document.getElementById;
+  // function register (e) {
+  //   e.preventDefault();
+  //   const first_name = e.target.first_name.value
+  //   const last_name = e.target.last_name.value
+  //   const email = e.target.email.value;
+  //   const password = e.target.password.value;
+  //   const confirmPass = e.target.confirmPass.value;
+  //   if (password !== confirmPass){
+  //     alert('Your passwords are not the same')
+  //     return
+  //   }
+  //   const auth = getAuth();
+  //   createUserWithEmailAndPassword(auth, email, password)
+  //     .then((userCredential) => {
+  //       console.log(userCredential)
+  //       const user = userCredential.user;
+  //       console.log(user)
+  //     })
+  //     .catch(err => {
+  //       console.error(err)
+  //     })
+  // }
 
-    rawData.forEach((arrayItem) => {
-        let firstName = arrayItem.first_name;
-        let lastName = arrayItem.last_name;
-        kekambasList.innerHTML += `li class='list-group-item'>${firstName} ${lastName}`
-    })
+  // authListener = () =>{
+  //   const auth = getAuth();
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user){
+  //       this.setState({user})
+  //     } else {
+  //       this.setState({user: null})
+  //     }
+  //   })
+  // }
 
-  } else {
-    console.log("No data available");
+  export default class App extends Component {
+    constructor(props){
+      super(props);
+      this.state = {
+        user: null
+      }
+    }
+  
+    authListener = () =>{
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        if (user){
+          this.setState({user})
+        } else {
+          this.setState({user: null})
+        }
+      })
+    }
+  
+    componentDidMount(){
+      this.authListener()
+    }
+  
+    register = (e) => {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const password = e.target.password.value;
+      const confirmPass = e.target.confirmPass.value;
+      if (password !== confirmPass){
+        alert('Your passwords are not the same')
+        return
+      }
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          console.log(userCredential)
+          const user = userCredential.user;
+          console.log(user)
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    }
+  
+    logout = () =>{
+      const auth = getAuth();
+      signOut(auth).then(()=>{})
+        .catch(err => console.error(err))
+    }
+  
+    login = (e) =>{
+      e.preventDefault();
+      const email = e.target.email.value;
+      const password = e.target.password.value;
+      const auth = getAuth();
+      signInWithEmailAndPassword(auth, email, password)
+        .then(u => console.log(u))
+        .catch(err => {
+          alert(err)
+        })
+    }
+  
+    render() {
+      console.log(app);
+      return (
+        <div>
+          <Router>
+            <Navbar logout={this.logout} user={this.state.user}/>
+              <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/login' element={<Login login={this.login} user={this.state.user}/>} />
+              <Route path='/register' element={<Register register={this.register} user={this.state.user}/>} />
+              <Route path='/post/:postId' element={< Single />} />
+              <Route path='/write' element={< Write />} />
+            </Routes>
+          </Router>
+  
+        </div>
+      )
+    }
   }
-}).catch((error) => {
-  console.error(error);
-});
 
-const auth = getAuth(app);
-console.log(auth);
 
-onAuthStateChanged(auth, user => {
-  if(user != null){
-    console.log('logged in!');
-  } else {
-    console.log('no user')
-  }
-})
 
-function App() {
-  console.log('hello');
-  return (
-    <Router >
-        <Navbar/>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={< Login />} />
-          <Route path='/register' element={< Register />} />
-          <Route path='/post/:postId' element={< Single />} />
-          <Route path='/write' element={< Write />} />
-        </Routes>
-    </ Router>
-  );
-}
+//   render() {
+//     console.log('hello');
+//     return (
+//       <Router >
+//           <Navbar/>
+//           <Routes>
+//             <Route path='/' element={<Home />} />
+//             <Route path='/login' element={< Login />} />
+//             <Route path='/register' element={< Register />} />
+//             <Route path='/post/:postId' element={< Single />} />
+//             <Route path='/write' element={< Write />} />
+//           </Routes>
+//       </ Router>
+//     );
+// }
 
 // const app = initializeApp(firebaseConfig);
 // console.log(app)
@@ -82,4 +187,4 @@ function App() {
 // const database = getDatabase(app);
 // console.log(database)
 
-export default App;
+// export default App;

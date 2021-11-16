@@ -1,15 +1,17 @@
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import React, { Component } from 'react'
 import './Login.css'
 
-export default function Login() {
-    return (
+export default class Login extends Component {
+    render(){
+    return this.props.user ? <Navigate to='/' />:(
         <div className='login'>
             <span className="loginTitle">Login</span>
-            <form className='loginForm'>
+            <form className='loginForm' onSubmit={(e) => this.props.login(e)}>
                 <label className='inputLabel'>Email</label>
-                <input type="text" placeholder='Email...' className='loginInput' />
+                <input type="text" name='email' placeholder='Email...' className='loginInput' />
                 <label className='inputLabel'>Password</label>
-                <input type="text" placeholder='Password...' className='loginInput' />
+                <input type="password" name='password' placeholder='Password...' className='loginInput' />
                 <button className='loginButton'>Login</button>
                 <button className='loginRegisterButton'>
                     <Link className='loginRegisterButton' to='/register'>Register Here</Link>
@@ -17,4 +19,5 @@ export default function Login() {
             </form>
         </div>
     )
+}
 }
