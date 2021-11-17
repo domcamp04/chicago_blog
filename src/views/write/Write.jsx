@@ -5,15 +5,18 @@ export default function Write() {
         <div className='write'> 
             <form className='writeForm'>
                 <div className="writeFormGroup">
-                    <label htmlFor="fileInput"></label>
-                    <input type="text" placeholder='Title' className='writeInput' autoFocus={true} />
+                    {/* <label htmlFor="fileInput"></label> */}
+                    <input type="text" name ='title' placeholder='Title' className='writeInput' autoFocus={true} />
                 </div>
                 <div className="writeFormGroup">
-                    <textarea placeholder='Share your Chicago adventure...' type='text' className='writeInputText'></textarea>
+                    <textarea placeholder='Share your Chicago adventure...' name='content' type='text' className='writeInputText'></textarea>
+                </div>
+                <div className="writeFormGroup">
+                    {/* <label htmlFor="fileInput"></label> */}
+                    <input type="text" placeholder='Image URL' name='image' className='writeInput' autoFocus={true} />
                 </div>
                 <div className="bottom">
-                <input type="file" id='fileInput' className='fileInput' />
-                <button className="writeSubmit">Submit</button>
+                    <button className="writeSubmit">Submit</button>
                 </div>
             </form>
         </div>

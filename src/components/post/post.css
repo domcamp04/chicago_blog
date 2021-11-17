@@ -1,4 +1,5 @@
 .post{
+    height: 550px;
     flex: 9;
     width: 95%;
     /* margin: 40px, 25px, 40px, 25px; */
@@ -11,13 +12,14 @@
     border-radius: 15px;
     /* display: flex;
     flex-direction: row; */
+    margin-right: 10px;
 }
 
 
 .postImg{
-    width: 25%;
+    width: 80%;
     height:250px;
-    object-fit: fill;
+    object-fit: cover;
     border-radius: 15px;
 }
 
@@ -41,6 +43,8 @@
     font-size: 20px;
     cursor: pointer;
     margin-bottom: 8px;
+    text-decoration: none;
+    color:rgb(44, 44, 44);
 }
 
 .postDate{

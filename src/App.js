@@ -6,7 +6,7 @@ import Home from './views/home/HomePage';
 import Single from "./views/single/Single";
 import Write from "./views/write/Write";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import app from './config/Fire'
+import app, { database } from './config/Fire'
 // import { getDatabase, ref, get } from "firebase/database";
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from 'firebase/auth';
 
@@ -123,11 +123,32 @@ import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, s
           console.error(err)
         })
     }
+
+    newPost = (d) => {
+      d.preventDefault();
+
+      let postCount = document.getElementById('chiPost').length 
+
+      const title = d.target.title.value;
+      const content = d.target.content.value;
+      const image = d.target.image.value;
+
+      database.ref('posts/' + postCount.toString()).set({
+        id: postCount +1,
+        title: title,
+        content: content,
+        image: image
+      })
+    }
+
+    
+
   
     logout = () =>{
       const auth = getAuth();
       signOut(auth).then(()=>{})
-        .catch(err => console.error(err))
+        .catch(err => console.error(err));
+        // <Redirect to='/' />
     }
   
     login = (e) =>{
@@ -152,7 +173,7 @@ import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, s
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login login={this.login} user={this.state.user}/>} />
               <Route path='/register' element={<Register register={this.register} user={this.state.user}/>} />
-              <Route path='/post/:postId' element={< Single />} />
+              <Route path='/post/:postId' element={< Single newPost={this.newPost} />} />
               <Route path='/write' element={< Write />} />
             </Routes>
           </Router>

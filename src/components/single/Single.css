@@ -1,3 +1,10 @@
+.singP{
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+
 .singlePost{
     flex: 9;
 }
@@ -23,8 +30,10 @@
 }
 
 .editButton{
+    margin-top: 10px;
     float: right;
-    margin-left: 10px;
+    width: 100%;
+    align-items: center;
     cursor: pointer;
     background-color: lightskyblue;
     border-radius: 15;
@@ -37,6 +46,7 @@
 }
 
 .deleteButton{
+    margin-top: 10px;
     float: right;
     cursor: pointer;
     background-color: maroon;

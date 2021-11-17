@@ -4,7 +4,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import "./HomePage.css";
 import React, { Component } from 'react'
 import { database } from "../../config/Fire";
-import { ref, onValue } from 'firebase/database'
+import { ref, onValue } from 'firebase/database';
 
 
 export default class Homepage extends Component {
