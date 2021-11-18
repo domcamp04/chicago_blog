@@ -20,11 +20,11 @@ export default class Navbar extends Component {
                         <Link className='navLink' to='/write'>New-Post</Link>
                     </li>
                     <li className='navListItem'>
-                        <Link className='navLink' to='/register'>Register</Link>
+                        { this.props.user ? null : <Link className='navLink' to='/register'>Register</Link> }
                     </li>
                     <li className='navListItem'>
-                        <Link className='navLink' to='/login'>Login</Link>
-                    </li>
+                        { this.props.user ? null : <Link className='navLink' to='/login'>Login</Link>}
+                    </li> 
                 </ul>
             </div>
             <div className="navR">

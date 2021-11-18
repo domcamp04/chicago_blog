@@ -3,12 +3,14 @@ import Navbar from "./components/navbar/Navbar";
 import Login from "./views/login/Login";
 import Register from "./views/register/Register";
 import Home from './views/home/HomePage';
-import Single from "./views/single/Single";
+import Single from "./components/single/Single";
 import Write from "./views/write/Write";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import app, { database } from './config/Fire'
-// import { getDatabase, ref, get } from "firebase/database";
+import  { database } from './config/Fire'
+import {  ref, set, onValue, remove } from "firebase/database";
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from 'firebase/auth';
+
+
 
   // const database = getDatabase(app);
   // console.log(database);
@@ -84,7 +86,8 @@ import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, s
     constructor(props){
       super(props);
       this.state = {
-        user: null
+        user: null,
+        posts: []
       }
     }
   
@@ -98,10 +101,18 @@ import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, s
         }
       })
     }
-  
-    componentDidMount(){
+
+    componentDidMount() {
+      console.log('hello')
       this.authListener()
+      const postsRef = ref(database, '/posts');
+      console.log('postsRef', postsRef)
+      onValue(postsRef, (snapshot) =>{
+        const data = snapshot.val()
+        this.setState({posts:data})
+      })
     }
+  
   
     register = (e) => {
       e.preventDefault();
@@ -124,25 +135,63 @@ import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, s
         })
     }
 
-    newPost = (d) => {
-      d.preventDefault();
+    // newPost = (d) => {
+    //   d.preventDefault();
 
-      let postCount = document.getElementById('chiPost').length 
+    //   let postCount = document.getElementById('chiPost').length 
 
-      const title = d.target.title.value;
-      const content = d.target.content.value;
-      const image = d.target.image.value;
+    //   const title = d.target.title.value;
+    //   const content = d.target.content.value;
+    //   const image = d.target.image.value;
 
-      database.ref('posts/' + postCount.toString()).set({
-        id: postCount +1,
+    //   database.ref('posts/' + postCount.toString()).set({
+    //     id: postCount +1,
+    //     title: title,
+    //     content: content,
+    //     image: image
+    //   })  
+    // }
+
+
+    newPost = (inputValues) => {
+      // d.preventDefault();
+      const { title, content, image } = inputValues
+
+      // let postCount = 100
+
+      // const title = title;
+      // const content = content;
+      // const image = image;
+
+      console.log(title)
+
+      // database.ref('posts/' + postCount.toString()).set({
+      //   id: postCount +1,
+      //   title: title,
+      //   content: content,
+      //   image: image
+      // })  
+
+      set(ref(database, 'posts/' + this.state.posts.length.toString()), {
+        id: this.state.posts.length +1,
         title: title,
         content: content,
         image: image
+      });
+      console.log(title)
+    }
+
+    deletePost = () => {
+      let postsId = 1
+      console.log('clicked')
+      remove(ref(database, '/posts/' + postsId)).then(() => {
+          console.log('this worked')
       })
     }
 
-    
-
+  //   handleRemove = () => {
+  //     return firebase.database().ref('posts/').child('id').remove();
+  // }
   
     logout = () =>{
       const auth = getAuth();
@@ -164,17 +213,19 @@ import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, s
     }
   
     render() {
-      console.log(app);
+      console.log('state', this.state);
       return (
         <div>
           <Router>
             <Navbar logout={this.logout} user={this.state.user}/>
               <Routes>
-              <Route path='/' element={<Home />} />
+              <Route path='/' element={<Home posts={this.state.posts}/>} />
               <Route path='/login' element={<Login login={this.login} user={this.state.user}/>} />
               <Route path='/register' element={<Register register={this.register} user={this.state.user}/>} />
-              <Route path='/post/:postId' element={< Single newPost={this.newPost} />} />
-              <Route path='/write' element={< Write />} />
+              {/* <Route path='/post/:postid' element={< Single posts={this.post} deletePost={this.deletePost}/>} /> */}
+              <Route path='/post/:postid' component={Single} element={< Single posts={this.post} deletePost={this.deletePost}/>} />
+
+              <Route path='/write' element={< Write newPost={this.newPost} user={this.state.user} />} />
             </Routes>
           </Router>
   

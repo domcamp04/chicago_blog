@@ -12,7 +12,8 @@ export default function Post(props) {
                     <span className="postCat">Sports</span>
                     <span className="postCat">Outdoors</span>
                 </div>
-                <Link to='/post/{props.posts.id}' className="postTitle">{props.post.title}</Link>
+                {/* <Link to='/post/{props.posts.index}' className="postTitle">{props.post.title}</Link> */}
+                <Link to={`/post/${props.post.id}`}>{props.post.title} </Link>
             </div>
             <p className='postdescription'>
                 {props.post.content}

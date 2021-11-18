@@ -1,7 +1,6 @@
 import "./sidebar.css";
 import React, { Component } from 'react'
 
-
 export default class Sidebar extends Component {
   render(){
   return (
@@ -26,6 +25,35 @@ export default class Sidebar extends Component {
           </li>
           <li className="sidebarListItem">
             Outdoors
+          </li>
+        </ul>
+      </div>
+      <div className="sidebarItem">
+        <span className="sidebarTitle">NEIGHBORHOODS</span>
+        <ul className="sidebarList">
+          <li className="sidebarListItem">
+            Old Town
+          </li>
+          <li className="sidebarListItem">
+            Streeterville
+          </li>
+          <li className="sidebarListItem">
+            Gold Coast
+          </li>
+          <li className="sidebarListItem">
+            Roscoe Village
+          </li>
+          <li className="sidebarListItem">
+            Lakeview
+          </li>
+          <li className="sidebarListItem">
+            Wrigleyville
+          </li>
+          <li className="sidebarListItem">
+            West Loop
+          </li>
+          <li className="sidebarListItem">
+            Bronzeville
           </li>
         </ul>
       </div>
