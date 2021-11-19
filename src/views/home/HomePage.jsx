@@ -33,7 +33,7 @@ export default class Homepage extends Component {
       <Header />
       <div className="home">
         <Sidebar />
-       {this.props.posts.map(p=> <Post post={p} />) }
+       {this.props.posts.map(p => <Post post={p} />) }
       </div>
     </>
   );

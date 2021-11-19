@@ -104,7 +104,7 @@ import Weather from './components/weather/Weather';
     }
 
     componentDidMount() {
-      console.log('hello')
+      console.log('mounted!')
       this.authListener()
       const postsRef = ref(database, '/posts');
       console.log('postsRef', postsRef)
@@ -211,6 +211,8 @@ import Weather from './components/weather/Weather';
           alert(err)
         })
     }
+
+    
     
 
     render() {
