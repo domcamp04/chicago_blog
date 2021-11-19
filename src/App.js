@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import  { database } from './config/Fire'
 import {  ref, set, onValue, remove } from "firebase/database";
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from 'firebase/auth';
+import Weather from './components/weather/Weather';
 
 
 
@@ -112,8 +113,7 @@ import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, s
         this.setState({posts:data})
       })
     }
-  
-  
+
     register = (e) => {
       e.preventDefault();
       const email = e.target.email.value;
@@ -182,7 +182,7 @@ import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, s
     }
 
     deletePost = () => {
-      let postsId = 1
+      let postsId = this.posts
       console.log('clicked')
       remove(ref(database, '/posts/' + postsId)).then(() => {
           console.log('this worked')
@@ -211,7 +211,8 @@ import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, s
           alert(err)
         })
     }
-  
+    
+
     render() {
       console.log('state', this.state);
       return (
@@ -223,9 +224,10 @@ import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, s
               <Route path='/login' element={<Login login={this.login} user={this.state.user}/>} />
               <Route path='/register' element={<Register register={this.register} user={this.state.user}/>} />
               {/* <Route path='/post/:postid' element={< Single posts={this.post} deletePost={this.deletePost}/>} /> */}
-              <Route path='/post/:postid' component={Single} element={< Single posts={this.post} deletePost={this.deletePost}/>} />
+              <Route path='/post/:postid' component={Single} element={< Single posts={this.state.posts.id} deletePost={this.deletePost}/>} />
 
               <Route path='/write' element={< Write newPost={this.newPost} user={this.state.user} />} />
+              <Route path='/weather' element={< Weather />} />
             </Routes>
           </Router>
   

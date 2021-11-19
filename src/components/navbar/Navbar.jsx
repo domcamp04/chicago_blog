@@ -30,7 +30,7 @@ export default class Navbar extends Component {
             <div className="navR">
                 {  this.props.user ? <h2 className='text-center'>{this.props.user.email}</h2>: null}
                     <li className='navListItem'>
-                        { this.props.user ? <Link className='navLink' to='/logout' onClick={this.props.logout}>Logout</Link>: null}
+                        { this.props.user ? <Link className='navLink' to='/' onClick={this.props.logout}>Logout</Link>: null}
                     </li>
             </div>
         </div>

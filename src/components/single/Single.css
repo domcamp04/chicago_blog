@@ -5,6 +5,10 @@
     justify-content: center
 }
 
+.singSide{
+    flex:3
+}
+
 .singlePost{
     flex: 9;
 }
